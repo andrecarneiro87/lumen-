@@ -45,3 +45,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+function greet() {
+    const input = document.getElementById("userInput");
+
+    if (input) {
+        input.value = "Olá, Lúmen!";
+        sendMessage();
+    }
+}
