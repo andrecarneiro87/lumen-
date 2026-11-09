@@ -1,0 +1,59 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+  <title>Lúmen — Ambiente de Teste</title>
+  <link rel="stylesheet" href="teste.css">
+</head>
+<body>
+
+  <main class="container">
+
+    <div class="orb">
+      <div class="eyes">
+        <span class="eye"></span>
+        <span class="eye"></span>
+      </div>
+      <div class="mouth"></div>
+    </div>
+
+    <h1>LÚMEN</h1>
+
+    <p class="status" id="status">
+      Olá. Estou despertando...
+    </p>
+
+    <div class="message" id="message">
+      Meu nome é Lúmen. Este é o começo da nossa jornada.
+    </div>
+
+    <button onclick="greet()">
+      Conversar comigo
+    </button>
+
+    <div class="input-area">
+      <input
+        type="text"
+        id="userInput"
+        placeholder="Escreva uma mensagem"
+        autocomplete="off"
+      >
+
+      <button onclick="sendMessage()">
+        Enviar
+      </button>
+    </div>
+
+    <footer>
+      Projeto Lúmen · Ambiente de Teste
+    </footer>
+
+  </main>
+
+  <script src="teste.js"></script>
+</body>
+</html>
