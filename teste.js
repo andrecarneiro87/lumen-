@@ -77,6 +77,19 @@ async function sendMessage() {
 
     chat.appendChild(answer);
 
+    // Identificação do provedor e do modelo
+    const modelInfo = document.createElement("p");
+    modelInfo.style.cssText =
+      "font-size:13px;color:#9cc9ed;margin-top:5px;";
+
+    const provider = data.provider || "Não informado";
+    const model = data.model || "Não informado";
+
+    modelInfo.textContent =
+      "Motor: " + provider + " | Modelo: " + model;
+
+    chat.appendChild(modelInfo);
+
     document.getElementById("status").textContent =
       "Estou conversando com você.";
 
