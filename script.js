@@ -3,12 +3,9 @@ const WORKER_URL = "https://lumen-bridge.andrebrazil.workers.dev";
 
 const conversationHistory = [];
 
-// Elementos do rosto e da interface
 const orb = document.querySelector(".orb");
-const mouth = document.querySelector(".mouth");
 const statusText = document.querySelector(".status");
 
-// Animações do Lúmen
 const animationStyle = document.createElement("style");
 
 animationStyle.textContent = `
@@ -17,16 +14,16 @@ animationStyle.textContent = `
   }
 
   .orb.is-speaking .mouth {
-    animation: lumen-talk 0.18s ease-in-out infinite alternate;
+    animation: lumen-talk 0.22s ease-in-out infinite alternate;
     transform-origin: center;
   }
 
   @keyframes lumen-talk {
     0% {
-      transform: scaleY(0.5) scaleX(1);
+      transform: scaleY(0.3) scaleX(0.9);
     }
     100% {
-      transform: scaleY(2.2) scaleX(1.15);
+      transform: scaleY(3) scaleX(1.2);
     }
   }
 
@@ -64,28 +61,25 @@ function setFaceState(state) {
   }
 }
 
-// Botão inicial
 function greet() {
   document.getElementById("userInput")?.focus();
 }
 
-// Apresenta a resposta gradualmente
+function wait(milliseconds) {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
 async function typeReply(element, text) {
   setFaceState("speaking");
 
-  let displayedText = "";
-
   for (const character of text) {
-    displayedText += character;
-    element.textContent = displayedText;
-
-    await new Promise(resolve => setTimeout(resolve, 18));
+    element.textContent += character;
+    await wait(55);
   }
 
   setFaceState("idle");
 }
 
-// Comunicação com Lúmen
 async function sendMessage() {
   const input = document.getElementById("userInput");
 
@@ -106,7 +100,10 @@ async function sendMessage() {
   }
 
   const question = document.createElement("p");
-  question.innerHTML = "<strong>Você:</strong> ";
+  const questionLabel = document.createElement("strong");
+
+  questionLabel.textContent = "Você: ";
+  question.appendChild(questionLabel);
   question.appendChild(document.createTextNode(message));
   chat.appendChild(question);
 
@@ -148,10 +145,10 @@ async function sendMessage() {
     loading.remove();
 
     const answer = document.createElement("p");
-    const label = document.createElement("strong");
+    const answerLabel = document.createElement("strong");
 
-    label.textContent = "Lúmen: ";
-    answer.appendChild(label);
+    answerLabel.textContent = "Lúmen: ";
+    answer.appendChild(answerLabel);
 
     const replyText = document.createElement("span");
     answer.appendChild(replyText);
@@ -168,7 +165,6 @@ async function sendMessage() {
   }
 }
 
-// Permite enviar a mensagem com Enter
 document.getElementById("userInput")?.addEventListener(
   "keydown",
   event => {
@@ -179,3 +175,4 @@ document.getElementById("userInput")?.addEventListener(
 );
 
 setFaceState("idle");
+
