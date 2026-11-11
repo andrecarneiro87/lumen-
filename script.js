@@ -19,12 +19,12 @@ function setFaceState(state) {
   }
   if (statusText) statusText.textContent = ({ idle: "Olá. Estou despertando...", thinking: "Estou pensando...", speaking: "Estou conversando com você..." })[state] || "Olá. Estou despertando...";
 }
-function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-async function typeReply(element, text) {
+function showReply(element, text) {
   setFaceState("speaking");
   element.style.whiteSpace = "pre-wrap";
-  for (const character of text) { element.textContent += character; await wait(35); }
-  setFaceState("idle");
+  element.textContent = text;
+  // A resposta já aparece inteira; a animação indica apenas a conclusão da fala.
+  window.setTimeout(() => setFaceState("idle"), 450);
 }
 
 function responseError(data, fallback = "Erro na comunicação.") {
@@ -51,11 +51,15 @@ async function getSession() {
   return sessionPromise;
 }
 
+let sendingMessage = false;
+
 async function sendMessage() {
+  if (sendingMessage) return;
   const input = document.getElementById("userInput");
   if (!input) return;
   const message = input.value.trim();
   if (!message) return;
+  sendingMessage = true;
 
   let chat = document.getElementById("lumen-chat");
   if (!chat) {
@@ -92,10 +96,12 @@ async function sendMessage() {
     const answer = document.createElement("p");
     const answerLabel = document.createElement("strong"); answerLabel.textContent = "Lúmen: "; answer.appendChild(answerLabel);
     const replyText = document.createElement("span"); answer.appendChild(replyText); chat.appendChild(answer);
-    await typeReply(replyText, data.reply || "Não recebi uma resposta textual.");
+    showReply(replyText, data.reply || "Não recebi uma resposta textual.");
   } catch (error) {
     loading.textContent = "Não consegui me conectar: " + error.message;
     setFaceState("idle");
+  } finally {
+    sendingMessage = false;
   }
 }
 
