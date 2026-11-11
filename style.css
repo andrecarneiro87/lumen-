@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 }
@@ -16,49 +17,144 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px 20px;
+  padding: 40px 20px;
   text-align: center;
 }
 
+/* CABEÇA DO LÚMEN */
+
 .orb {
-  width: 190px;
-  height: 190px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #a9eaff, #248bdc 45%, #07509d 75%);
-  box-shadow: 0 0 35px #39aaff, 0 0 90px #1676d8;
+  width: 240px;
+  height: 220px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: breathe 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 22px #00dfff);
 }
 
-.eyes {
+.robot-face {
+  width: 205px;
+  height: 180px;
+  position: relative;
+  border-radius: 38% 38% 32% 32%;
+  background: linear-gradient(
+    145deg,
+    #ffffff 0%,
+    #e9faff 55%,
+    #b9e6f5 100%
+  );
+  border: 5px solid #54edff;
+  box-shadow:
+    inset -8px -10px 18px rgba(0, 100, 180, 0.18),
+    0 0 15px #00dfff,
+    0 0 35px rgba(0, 220, 255, 0.55);
+}
+
+/* VISOR */
+
+.visor {
+  position: absolute;
+  width: 170px;
+  height: 90px;
+  top: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 35px;
+  background: linear-gradient(145deg, #102c4d, #071a35);
+  border: 2px solid #245d87;
   display: flex;
-  gap: 35px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* OLHOS */
+
+.eyes {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 42px;
 }
 
 .eye {
-  width: 18px;
-  height: 25px;
+  width: 29px;
+  height: 29px;
   border-radius: 50%;
-  background: #071b35;
+  background: #00eaff;
+  box-shadow:
+    0 0 8px #00eaff,
+    0 0 18px #00dfff,
+    inset 0 0 8px #ffffff;
   animation: blink 5s infinite;
 }
 
-@keyframes breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
+/* BOCA */
+
+.mouth {
+  width: 28px;
+  height: 10px;
+  border-bottom: 3px solid #ff986e;
+  border-radius: 50%;
+  transition: all 0.2s ease;
 }
 
-@keyframes blink {
-  0%, 45%, 48%, 100% { transform: scaleY(1); }
-  46%, 47% { transform: scaleY(0.1); }
+/* LUZES FLUTUANTES */
+
+.light-dot {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #00eaff;
+  box-shadow: 0 0 15px #00eaff;
+  animation: float 3s ease-in-out infinite;
 }
+
+.dot-one {
+  top: -12px;
+  left: -5px;
+}
+
+.dot-two {
+  top: 10px;
+  left: -22px;
+  animation-delay: 0.7s;
+}
+
+.dot-three {
+  right: -17px;
+  bottom: 20px;
+  animation-delay: 1.2s;
+}
+
+/* IDENTIDADE VISUAL */
 
 h1 {
   margin-top: 35px;
-  letter-spacing: 6px;
+  letter-spacing: 8px;
+  font-size: 38px;
+  text-shadow: 0 0 15px rgba(90, 200, 255, 0.5);
 }
+
+.status {
+  font-size: 20px;
+  margin-top: 35px;
+}
+
+.message {
+  max-width: 650px;
+  font-size: 19px;
+  line-height: 1.6;
+  margin: 25px auto;
+}
+
+/* BOTÕES */
 
 button {
   margin-top: 25px;
@@ -68,4 +164,88 @@ button {
   background: #1269aa;
   color: white;
   font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #198bd5;
+  box-shadow: 0 0 18px #39aaff;
+}
+
+.input-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+input {
+  width: 260px;
+  max-width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  border: 2px solid #8bcfff;
+  font-size: 16px;
+}
+
+footer {
+  margin-top: 35px;
+  opacity: 0.65;
+  font-size: 13px;
+}
+
+/* ANIMAÇÕES */
+
+@keyframes breathe {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.035);
+  }
+}
+
+@keyframes blink {
+  0%, 45%, 48%, 100% {
+    transform: scaleY(1);
+  }
+  46%, 47% {
+    transform: scaleY(0.08);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* CELULAR */
+
+@media (max-width: 480px) {
+  .orb {
+    transform: scale(0.9);
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .message {
+    font-size: 17px;
+  }
+
+  .input-area {
+    flex-direction: column;
+  }
+
+  input {
+    width: 100%;
+  }
 }
